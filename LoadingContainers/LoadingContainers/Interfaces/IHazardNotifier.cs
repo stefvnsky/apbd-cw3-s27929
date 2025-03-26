@@ -2,5 +2,5 @@
 
 public interface IHazardNotifier
 {
-    void NotifyHazard(string message);
+    void NotifyHazard(string message, string serialNumber);
 }
