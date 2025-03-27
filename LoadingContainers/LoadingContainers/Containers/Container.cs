@@ -1,21 +1,40 @@
-﻿namespace LoadingContainers.Containers;
+﻿using LoadingContainers.Exceptions;
+
+namespace LoadingContainers.Containers;
 
 public abstract class Container
 {
+    private static int _serialNumberCounter = 1;
+    public double ActualCargoWeight { get; set; } 
     public double Height { get; set; } 
     public double Weight { get; set; }
     public double Depth { get; set; }
     public string SerialNumber { get; set; }
+    public string ContainerType { get; set; }
     public double MaxPayload { get; set; }
 
-    public Container(double Height, double Weight, double Depth, string SerialNumber, double MaxPayload)
+    public Container(double height, double weight, double depth, string containerType, double maxPayload)
     {
-        this.Height = Height;
-        this.Weight = Weight;
-        this.Depth = Depth;
-        this.SerialNumber = SerialNumber;
-        this.MaxPayload = MaxPayload;
+        ActualCargoWeight = 0;
+        this.Height = height;
+        this.Weight = weight;
+        this.Depth = depth;
+        this.ContainerType = containerType;
+        SerialNumber = GenerateContainerSerialNumber(containerType);
+        this.MaxPayload = maxPayload;
     }
-    public abstract void Load(double cargoWeight);
+    private string GenerateContainerSerialNumber(string containerType)
+    {
+        return $"KON-{containerType}-{_serialNumberCounter++}";
+    }
+    public virtual void Load(double cargoWeight)
+    {
+        if (cargoWeight + ActualCargoWeight > MaxPayload)
+        {
+            throw new OverfillException("The loaded weight exceeds the maximum capacity of the container");
+        }
+        ActualCargoWeight += cargoWeight;
+        Console.WriteLine($"Container {SerialNumber} loaded: {cargoWeight} kg");
+    }
     public abstract void Unload();
 }
