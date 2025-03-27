@@ -8,7 +8,7 @@ public class Ship
     public double MaxContainersWeight { get; set; }         //maks waga kontenerow
     public int MaxNumOfContainers { get; set; }             //maks liczba kontenerow
     public List<Container> LoadedContainers { get; set; }   //aktualnie zaladowane kontenery
-    public double CurrentContanersWeight { get; set; }      //waga aktualnie zaladowanych
+    public double CurrentContainersWeight { get; set; }      //waga aktualnie zaladowanych
 
     public Ship(string shipName, double maxSpeed, double maxContainersWeight, int maxNumOfContainers)
     {
@@ -17,7 +17,7 @@ public class Ship
         MaxContainersWeight = maxContainersWeight;
         MaxNumOfContainers = maxNumOfContainers;
         LoadedContainers = new List<Container>();
-        CurrentContanersWeight = 0;
+        CurrentContainersWeight = 0;
     }
     public void LoadContainer(Container container)
     {
@@ -26,14 +26,14 @@ public class Ship
             Console.WriteLine("Max number of containers reached, ship is full.");
             return;
         }
-        if (CurrentContanersWeight + container.ActualCargoWeight > MaxContainersWeight)
+        if (CurrentContainersWeight + container.ActualCargoWeight > MaxContainersWeight)
         {
-            Console.WriteLine("Containers weight reached, ship is full.");   
+            Console.WriteLine("Containers weight reached, ship is full.");
             return;
         }
         LoadedContainers.Add(container);
-        CurrentContanersWeight += container.ActualCargoWeight;
-        Console.WriteLine($"Container {container.SerialNumber} loaded. Current containers weight: {CurrentContanersWeight} kg");
+        CurrentContainersWeight += container.ActualCargoWeight; // Aktualizacja wagi
+        Console.WriteLine($"Container {container.SerialNumber} loaded. Current containers weight: {CurrentContainersWeight} kg");
     }
     public void UnloadContainers(Container container)
     {
@@ -43,8 +43,8 @@ public class Ship
             return;
         }
         LoadedContainers.Remove(container);
-        CurrentContanersWeight -= container.ActualCargoWeight;
-        Console.WriteLine($"Container {container.SerialNumber} unloaded.Current containers weight: {CurrentContanersWeight} kg");
+        CurrentContainersWeight -= container.ActualCargoWeight;
+        Console.WriteLine($"Container {container.SerialNumber} unloaded.Current containers weight: {CurrentContainersWeight} kg");
     }
     public void TransferContainers(Ship destinationShip, Container containerToTransfer)
     {
@@ -80,7 +80,7 @@ public class Ship
         Console.WriteLine($"Max spped: {MaxSpeed} knots");
         Console.WriteLine($"Max containers weight: {MaxContainersWeight} kg");
         Console.WriteLine($"Max num of containers: {MaxNumOfContainers}");
-        Console.WriteLine($"Current containers weight: {CurrentContanersWeight} kg");
+        Console.WriteLine($"Current containers weight: {CurrentContainersWeight} kg");
         Console.WriteLine($"Containers loaded: {LoadedContainers.Count}/{MaxNumOfContainers}");
     }
 }
