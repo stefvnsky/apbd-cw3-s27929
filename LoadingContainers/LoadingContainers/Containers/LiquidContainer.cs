@@ -32,7 +32,7 @@ public class LiquidContainer : Container, IHazardNotifier
     //oproznianie 
     public override void Unload()
     {
-        Console.WriteLine($"Container {SerialNumber} has been emptied.");        
+        Console.WriteLine($"Container {SerialNumber} has been emptied. Remaining cargo: {ActualCargoWeight} kg");
     }
     //powiadomienie
     public void NotifyHazard(string message, string serialNumber)

@@ -31,7 +31,7 @@ public abstract class Container
     {
         if (cargoWeight + ActualCargoWeight > MaxPayload)
         {
-            throw new OverfillException("The loaded weight exceeds the maximum capacity of the container");
+            throw new OverfillException("Attempting to load a load in excess of the permitted capacity");
         }
         ActualCargoWeight += cargoWeight;
         Console.WriteLine($"Container {SerialNumber} loaded: {cargoWeight} kg");
